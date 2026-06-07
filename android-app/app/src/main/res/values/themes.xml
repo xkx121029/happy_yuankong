@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.P2PRemote" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary_start</item>
+        <item name="colorPrimaryVariant">@color/primary_end</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:statusBarColor">@color/primary_start</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+</resources>

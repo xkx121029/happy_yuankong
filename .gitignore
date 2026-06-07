@@ -6,6 +6,8 @@ node_modules/
 # Build outputs
 dist/
 out/
+dist-portable/
+dist-electron/
 
 # OS files
 .DS_Store
@@ -24,9 +26,18 @@ npm-debug.log*
 android-app/.gradle/
 android-app/build/
 android-app/app/build/
+gradle-*/
+gradle-*-bin.zip
+temp-gradle/
+
+# JDK
+jdk-*/
+java*.zip
 
 # Electron
 windows-app/node_modules/
+windows-app/dist-portable/
+windows-app/dist-electron/
 
 # Debug
 .vscode/launch.json
@@ -34,3 +45,5 @@ windows-app/node_modules/
 # Misc
 *.swp
 *.swo
+*.class
+*.java

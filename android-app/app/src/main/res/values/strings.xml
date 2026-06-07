@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">P2P Remote</string>
+    <string name="server_url">服务器地址</string>
+    <string name="room_id">房间号</string>
+    <string name="connect">连接</string>
+    <string name="disconnect">断开连接</string>
+    <string name="generate_random">随机生成</string>
+    <string name="online_devices">在线设备</string>
+    <string name="call">连接</string>
+    <string name="hangup">挂断</string>
+    <string name="connected_to_room">已连接到房间: %1$s</string>
+    <string name="me">我</string>
+    <string name="please_enter_room_id">请输入房间号</string>
+    <string name="connection_failed">连接失败，请检查服务器地址</string>
+    <string name="call_failed">建立连接失败</string>
+</resources>
