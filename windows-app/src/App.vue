@@ -3,6 +3,11 @@
     <div class="main-card">
       <h1 class="title">P2P 远程控制</h1>
       
+      <div class="server-status">
+        <span :class="['status-dot', isServerConnected ? 'connected' : 'disconnected']"></span>
+        <span>信令服务器: {{ isServerConnected ? '已连接' : '未连接' }}</span>
+      </div>
+      
       <div class="connection-section">
         <div class="input-group">
           <label>服务器地址</label>
@@ -121,6 +126,7 @@ const roomId = ref('')
 const mode = ref('controller')
 const socket = ref(null)
 const isConnected = ref(false)
+const isServerConnected = ref(false)
 const clients = ref([])
 const myId = ref('')
 const remoteId = ref('')
@@ -172,7 +178,7 @@ const connect = async () => {
     socket.value = io(serverUrl.value)
     
     socket.value.on('connect', () => {
-      console.log('Connected to signaling server')
+      isServerConnected.value = true
       socket.value.emit('join', { 
         roomId: roomId.value, 
         deviceType: 'windows',
@@ -208,7 +214,6 @@ const connect = async () => {
     })
 
   } catch (error) {
-    console.error('Connection error:', error)
     alert('连接失败，请检查服务器地址')
   }
 }
@@ -216,6 +221,7 @@ const connect = async () => {
 const disconnect = () => {
   if (socket.value) {
     socket.value.disconnect()
+    isServerConnected.value = false
   }
   hangup()
   isConnected.value = false
@@ -264,21 +270,12 @@ const callClient = async (clientId) => {
 
     isCalling.value = true
   } catch (error) {
-    console.error('Call error:', error)
     alert('建立连接失败')
   }
 }
 
 const setupDataChannel = () => {
   if (!dataChannel.value) return
-  
-  dataChannel.value.onopen = () => {
-    console.log('Data channel opened')
-  }
-  
-  dataChannel.value.onclose = () => {
-    console.log('Data channel closed')
-  }
   
   dataChannel.value.onmessage = (event) => {
     const message = JSON.parse(event.data)
@@ -407,7 +404,6 @@ const handleOffer = async (from, offer) => {
 
     isCalling.value = true
   } catch (error) {
-    console.error('Handle offer error:', error)
   }
 }
 
@@ -415,7 +411,6 @@ const setupControlledDataChannel = () => {
   if (!dataChannel.value) return
   
   dataChannel.value.onopen = () => {
-    console.log('Data channel opened on controlled side')
     sendControlMessage('dimensions', videoDimensions.value)
   }
   
@@ -450,56 +445,38 @@ const isElectron = () => {
 }
 
 const simulateMouseDown = (x, y, button) => {
-  console.log('Mouse down at:', x, y, button)
   if (isElectron()) {
     window.electronAPI.mouseDown(x, y, button)
-  } else {
-    console.warn('Electron API not available - running in browser mode')
   }
 }
 
 const simulateMouseMove = (x, y) => {
-  console.log('Mouse move to:', x, y)
   if (isElectron()) {
     window.electronAPI.mouseMove(x, y)
-  } else {
-    console.warn('Electron API not available - running in browser mode')
   }
 }
 
 const simulateMouseUp = (x, y, button) => {
-  console.log('Mouse up at:', x, y, button)
   if (isElectron()) {
     window.electronAPI.mouseUp(x, y, button)
-  } else {
-    console.warn('Electron API not available - running in browser mode')
   }
 }
 
 const simulateWheel = (deltaX, deltaY) => {
-  console.log('Wheel:', deltaX, deltaY)
   if (isElectron()) {
     window.electronAPI.mouseWheel(deltaX, deltaY)
-  } else {
-    console.warn('Electron API not available - running in browser mode')
   }
 }
 
 const simulateKeyDown = (keyData) => {
-  console.log('Key down:', keyData)
   if (isElectron()) {
     window.electronAPI.keyDown(keyData.key, keyData.code, keyData.ctrlKey, keyData.shiftKey, keyData.altKey)
-  } else {
-    console.warn('Electron API not available - running in browser mode')
   }
 }
 
 const simulateKeyUp = (keyData) => {
-  console.log('Key up:', keyData)
   if (isElectron()) {
     window.electronAPI.keyUp(keyData.key, keyData.code)
-  } else {
-    console.warn('Electron API not available - running in browser mode')
   }
 }
 

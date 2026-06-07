@@ -58,7 +58,8 @@
                         android:inputType="textUri"
                         android:padding="14dp"
                         android:background="@drawable/edittext_bg"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -90,7 +91,8 @@
                             android:hint="输入或创建房间"
                             android:padding="14dp"
                             android:background="@drawable/edittext_bg"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:textColor="@color/black" />
 
                         <Button
                             android:id="@+id/btnGenerateRoom"
